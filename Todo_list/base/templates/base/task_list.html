@@ -2,15 +2,21 @@
 <hr>
 {% if request.user.is_authenticated %}
 <p>{{request.user}}</p> 
-<a href="">Logout</a>
+<a href="{% url 'base:logout' %}">Logout</a>
 {% else %}
-<a href="">Login</a>
+<a href="{% url 'base:login' %}">Login</a>
 {% endif %}
 
 <hr>
 <h1>My to do list</h1>
 
 <a href="{% url 'base:task-create' %}">Add Task</a>
+
+
+<form method="GET">
+    <input type="text" name='search-area' value="{{search_input}}">
+    <input type="submit" value= "Search">
+</form>
 
 <table>
     <tr>
@@ -20,7 +26,6 @@
     {% for task in tasks %}
     <tr>
         <td>{{task.title}}</td>
-        <td><a href="{% url 'base:task' task.id %}">View</a></td>
         <td><a href="{% url 'base:task_update' task.id%}">Edit</a></td>
         <td><a href="{% url 'base:task_delete' task.id%}">Delete</a></td>
 
