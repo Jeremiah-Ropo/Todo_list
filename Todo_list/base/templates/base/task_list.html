@@ -1,13 +1,15 @@
 
-<hr>
+{% extends 'base/main.html' %}
+
+{% block content%}
 {% if request.user.is_authenticated %}
 <p>{{request.user}}</p> 
+<hr>
 <a href="{% url 'base:logout' %}">Logout</a>
 {% else %}
 <a href="{% url 'base:login' %}">Login</a>
 {% endif %}
 
-<hr>
 <h1>My to do list</h1>
 
 <a href="{% url 'base:task-create' %}">Add Task</a>
@@ -34,3 +36,7 @@
     <h3>No items in list</h3> 
     {% endfor %}
 </table>
+
+{% endblock content %}
+
+
