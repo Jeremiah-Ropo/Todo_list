@@ -8,14 +8,15 @@
 
 <div class="card-body">
     <form method="POST">
-        {% csrf_token %}
-        <label>{{form.username.label}}</label>
-        {{form.username}}
-        <label>{{form.password1.label}}</label>
-        {{form.password1}}
-        <label>{{form.password2.label}}</label>
-        {{form.password2}}
-        <input style="margin-top: 10px;" class="button" type="submit" value="Submit">
+        {% csrf_token %} 
+        <!-- {{form.as_p}} -->
+        <p><label>{{form.username.label}}</label></p>
+            {{form.username}}
+        <p><label>{{form.password1.label}}</label></p>
+            {{form.password1}}
+        <p><label>{{form.password2.label}}</label></p>
+            {{form.password2}}
+        <input style="margin-top: 10px;" class="button" type="submit" value="Register">
     </form>
     <p>Already have an account? <a href="{% url 'base:login' %}">Login</a></p>
 

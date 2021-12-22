@@ -1,19 +1,22 @@
+from django.http import request
 from django.shortcuts import redirect, render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import FormView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 from .models import Task
 
-class RegisterView(FormView):
+class RegisterPage(FormView):
     template_name = 'base/register.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True
@@ -23,14 +26,25 @@ class RegisterView(FormView):
         user = form.save()
         if user is not None:
             login(self.request, user)
-        return super(RegisterView, self).form_valid(form)
+        return super(RegisterPage, self).form_valid(form)
 
 
     def get(self, *args, **kwargs): 
         if self.request.user.is_authenticated:
             return redirect('base:tasks')
-        return super(RegisterView, self).get(*args, **kwargs)
-
+        return super(RegisterPage, self).get(*args, **kwargs)
+# @csrf_exempt
+# def register(request):
+#     if request.POST == 'POST':
+#         form = UserCreationForm()
+#         if form.is_valid():
+#             form.save()
+#         messages.success(request, 'Account created successfully')
+    
+#     else:
+#         form = UserCreationForm()
+#         context = { 'form': form}
+#     return render(request, 'base/register.html', context)
 
 
 
